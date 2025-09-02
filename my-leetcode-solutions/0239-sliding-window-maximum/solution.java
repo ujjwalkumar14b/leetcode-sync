@@ -6,24 +6,21 @@ class Solution {
         
         int n = nums.length;
         int[] result = new int[n - k + 1];
-        Deque<Integer> dq = new LinkedList<>(); // stores indices
+        Deque<Integer> deque = new ArrayDeque<>();
         
         for (int i = 0; i < n; i++) {
-            // Remove elements out of window
-            while (!dq.isEmpty() && dq.peekFirst() <= i - k) {
-                dq.pollFirst();
+            while (!deque.isEmpty() && deque.peekFirst() <= i - k) {
+                deque.pollFirst();
             }
             
-            // Remove smaller elements (they’ll never be max if current is bigger)
-            while (!dq.isEmpty() && nums[dq.peekLast()] < nums[i]) {
-                dq.pollLast();
+            while (!deque.isEmpty() && nums[deque.peekLast()] < nums[i]) {
+                deque.pollLast();
             }
             
-            dq.offerLast(i);
+            deque.offerLast(i);
             
-            // Add max to result (start recording from index k-1)
             if (i >= k - 1) {
-                result[i - k + 1] = nums[dq.peekFirst()];
+                result[i - k + 1] = nums[deque.peekFirst()];
             }
         }
         return result;
