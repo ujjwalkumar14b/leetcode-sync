@@ -1,17 +1,15 @@
 class Solution:
     def isPalindrome(self, x: int) -> bool:
-        
-        # negative numbers are not palindromes
         if x < 0:
             return False
         
-        num = x
+        original = x
         reversed_num = 0
         
-        while num > 0:
-            rem = num % 10
+        while x > 0:
+            rem = x % 10
             reversed_num = reversed_num * 10 + rem
-            num //= 10
+            x //= 10
         
-        return reversed_num == x
+        return original == reversed_num
 
