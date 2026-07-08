@@ -1,5 +1,6 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
+        
         seen = {}
 
         for i, num in enumerate(nums):
@@ -7,4 +8,8 @@ class Solution:
             if complement in seen:
                 return [seen[complement], i]
             seen[num] = i
+            
 
+
+
+        
