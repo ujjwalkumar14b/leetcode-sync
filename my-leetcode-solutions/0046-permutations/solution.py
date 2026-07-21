@@ -1,18 +1,17 @@
-from typing import List
-
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-        res = []
+        result = []
         
-        def backtrack(start: int):
-            if start == len(nums):
-                res.append(nums[:]) 
+        def backtrack(first=0):
+            if first == len(nums):
+                result.append(nums[:])
                 return
             
-            for i in range(start, len(nums)):
-                nums[start], nums[i] = nums[i], nums[start]
-                backtrack(start + 1)
-                nums[start], nums[i] = nums[i], nums[start]
+            for i in range(first, len(nums)):
+
+                nums[first], nums[i] = nums[i], nums[first]
+                backtrack(first + 1)
+                nums[first], nums[i] = nums[i], nums[first]
                 
-        backtrack(0)
-        return res
+        backtrack()
+        return result
