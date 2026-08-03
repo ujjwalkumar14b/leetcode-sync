@@ -1,12 +1,9 @@
+from functools import cache
 class Solution:
+    @cache
     def climbStairs(self, n: int) -> int:
-        memo = {1:1, 2:2}
+        if n <= 2:
+            return n
         
-        def solve(x):
-            if x in memo:
-                return memo[x]
-            memo[x] = solve(x-1) + solve(x-2)
-            return memo[x]
+        return self.climbStairs(n-1) + self.climbStairs(n-2)
         
-        return solve(n)
-
