@@ -1,34 +1,25 @@
 class Solution:
     def divide(self, dividend: int, divisor: int) -> int:
-        # Constants for 32-bit signed integer range
         INT_MAX = 2**31 - 1
         INT_MIN = -2**31
-
-        # Handle overflow case
+        
         if dividend == INT_MIN and divisor == -1:
             return INT_MAX
-
-        # Determine sign of result
-        negative = (dividend < 0) ^ (divisor < 0)
-
-        # Work with positive values
-        dividend = abs(dividend)
-        divisor = abs(divisor)
-
-        result = 0
-
-        # Subtract divisor multiples
-        while dividend >= divisor:
-            temp = divisor
+            
+        is_negative = (dividend < 0) ^ (divisor < 0)        
+        abs_dividend = abs(dividend)
+        abs_divisor = abs(divisor)
+        quotient = 0
+        
+        while abs_dividend >= abs_divisor:
+            temp_divisor = abs_divisor
             multiple = 1
-
-            # Double until too large
-            while dividend >= (temp << 1):
-                temp <<= 1
+            
+            while abs_dividend >= (temp_divisor << 1):
+                temp_divisor <<= 1
                 multiple <<= 1
-
-            dividend -= temp
-            result += multiple
-
-        return -result if negative else result
-
+                
+            abs_dividend -= temp_divisor
+            quotient += multiple
+            
+        return -quotient if is_negative else quotient
