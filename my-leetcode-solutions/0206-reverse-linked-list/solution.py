@@ -3,19 +3,17 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
-
-from typing import Optional
-
 class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        
+
         prev = None
-        current = head
+        curr = head
         
-        while current is not None:
-            nxt = current.next      # store next node
-            current.next = prev     # reverse pointer
-            prev = current          # move prev forward
-            current = nxt           # move current forward
-        
+        while curr:
+            nxt = curr.next  # Temporarily store next node
+            curr.next = prev # Reverse current node's pointer
+            prev = curr      # Move prev pointer 1 step forward
+            curr = nxt       # Move curr pointer 1 step forward
+            
         return prev
+        
