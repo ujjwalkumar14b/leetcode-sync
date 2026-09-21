@@ -1,26 +1,43 @@
-import java.util.Stack;
 class Solution {
     public int largestRectangleArea(int[] heights) {
-        int n = heights.length;
+        
         int maxArea = 0;
+        int nsr[] = new int[heights.length];
+        int nsl[] = new int[heights.length];
 
-        // Stack will store indices of bars
-        Stack<Integer> stack = new Stack<>();
-
-        for (int i = 0; i <= n; i++) {
-            // For the last iteration, take height as 0 to flush out stack
-            int h = (i == n) ? 0 : heights[i];
-
-            // While current bar is lower than top of stack → pop & calculate area
-            while (!stack.isEmpty() && h < heights[stack.peek()]) {
-                int height = heights[stack.pop()];
-                int width = stack.isEmpty() ? i : i - stack.peek() - 1;
-                maxArea = Math.max(maxArea, height * width);
+        // Next Smaller Right
+        Stack<Integer> s = new Stack<>();
+        for(int i = heights.length-1; i >= 0; i--){
+            while(!s.isEmpty() && heights[s.peek()] >= heights[i]){
+                s.pop();
             }
-            stack.push(i);
+            if(s.isEmpty()){
+                nsr[i] = heights.length;
+            }else{
+                nsr[i] = s.peek();
+            }
+            s.push(i);
         }
-
+        // Next Smaller Left
+        s = new Stack<>();
+        for(int i = 0; i < heights.length; i++){
+            while(!s.isEmpty() && heights[s.peek()] >= heights[i]){
+                s.pop();
+            }
+            if(s.isEmpty()){
+                nsl[i] = -1;
+            }else{
+                nsl[i] = s.peek();
+            }
+            s.push(i);
+        }
+        // Current Area
+        for(int i = 0; i < heights.length; i++){
+            int height = heights[i];
+            int width = nsr[i] - nsl[i] - 1;
+            int currArea = height * width;
+            maxArea = Math.max(currArea, maxArea);
+        }
         return maxArea;
     }
 }
-
