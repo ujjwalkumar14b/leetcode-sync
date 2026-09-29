@@ -1,15 +1,11 @@
 class Solution:
-    def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-        result = []
+    def postorderTraversal(self, root: TreeNode | None) -> list[int]:
 
-        def inorder(node):
-            if not node:
-                return
+        if root is None:
+            return []
+        
+        leftSubtree = self.postorderTraversal(root.left)
+        rightSubtree = self.postorderTraversal(root.right)
 
-            inorder(node.left)
-            inorder(node.right)
-            result.append(node.val)
-
-        inorder(root)
-        return result
-       
+        return leftSubtree + rightSubtree + [root.val]
+        
