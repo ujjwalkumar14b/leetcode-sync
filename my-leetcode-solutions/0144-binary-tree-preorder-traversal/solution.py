@@ -1,15 +1,11 @@
 class Solution:
-    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-        result = []
+    def preorderTraversal(self, root: TreeNode | None) -> list[int]:
 
-        def inorder(node):
-            if not node:
-                return
+        if root is None:
+            return []
+        
+        leftSubtree = self.preorderTraversal(root.left)
+        rightSubtree = self.preorderTraversal(root.right)
 
-            result.append(node.val)
-            inorder(node.left)
-            inorder(node.right)
-
-        inorder(root)
-        return result
-       
+        return [root.val] + leftSubtree + rightSubtree
+        
