@@ -3,7 +3,7 @@ name: Sync LeetCode Submissions
 on:
   workflow_dispatch: # Allows manual triggering
   schedule:
-    - cron: "0 * * * *" # Runs automatically at the start of every hour
+    - cron: "17 * * * *" # Runs automatically after 17 minutes of every hour
 
 jobs:
   sync:
